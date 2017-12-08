@@ -1,19 +1,26 @@
 """Imports"""
 import os
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from models import Result
 
-APP = Flask(__name__)
-APP.config.from_object(os.environ['APP_SETTINGS'])
+app = Flask(__name__)
+app.config.from_object(os.environ['app_SETTINGS'])
+app.config['SQLALCHEMY_TRACK_MODIFCATIONS'] = False
+db = SQLAlchemy(app)
 
-@APP.route('/')
+
+@app.route('/')
 def hello():
     """Return Hello World"""
     return "Hello World!"
 
-@APP.route('/<name>')
+
+@app.route('/<name>')
 def hello_name(name):
     """Return Hello World"""
     return "Hello {}!".format(name)
 
+
 if __name__ == '__main__':
-    APP.run()
+    app.run()
